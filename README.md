@@ -6,3 +6,6 @@ shift variable, and then converts back to chars and returns the new string.
 
 Optional parameter to remove whitespaces (change to true to remove whitespace)
 Default shift value of 1 if no shift is argument entered.
+
+Includes a test case to showcase how the encryption works, and the option
+to input a custom message, shift factor, and turn on/off whitespace removal.
