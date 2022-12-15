@@ -13,46 +13,72 @@ require './lib/cipher'
 
 describe CaesarCipher do
   describe '#caesar_cipher' do
-    it 'when shift is 0' do
-      message = 'this is the original message'
-      cipher = CaesarCipher.new
-      expect(cipher.caesar_cipher(message, 0)).to eql(message)
+    context 'when shift is 0' do
+      it 'keeps the original message' do
+        message = 'this is the original message'
+        cipher = CaesarCipher.new
+        expect(cipher.caesar_cipher(message, 0)).to eql(message)
+      end
     end
 
-    it 'when shift is 3' do
-      message = 'shift me three'
-      cipher = CaesarCipher.new
-      expect(cipher.caesar_cipher(message, 3)).to eql('vkliw ph wkuhh')
+    context 'when shift is 3' do
+      it 'shifts letters to the right by 3' do
+        message = 'shift me three'
+        cipher = CaesarCipher.new
+        expect(cipher.caesar_cipher(message, 3)).to eql('vkliw ph wkuhh')
+      end
     end
 
-    it 'wraps when beyond z' do
-      message = 'wrappy zappy'
-      cipher = CaesarCipher.new
-      expect(cipher.caesar_cipher(message, 30)).to eql('avettc dettc')
+    context 'when shift goes out of range' do
+      it 'wraps z to a' do
+        message = 'wrappy zappy'
+        cipher = CaesarCipher.new
+        expect(cipher.caesar_cipher(message, 30)).to eql('avettc dettc')
+      end
     end
 
-    it 'when message has different casing' do
-      message = 'Keep My Case'
-      cipher = CaesarCipher.new
-      expect(cipher.caesar_cipher(message, 1)).to eql('Lffq Nz Dbtf')
+    context 'when message has different casing' do
+      it 'keeps the original casing' do
+        message = 'Keep My Case'
+        cipher = CaesarCipher.new
+        expect(cipher.caesar_cipher(message, 1)).to eql('Lffq Nz Dbtf')
+      end
     end
 
-    it 'when shift is negative' do
-      message = 'Go back'
-      cipher = CaesarCipher.new
-      expect(cipher.caesar_cipher(message, -3)).to eql('Dl yxzh')
+    context 'when shift is negative' do
+      it 'shifts letters to the left' do
+        message = 'hi'
+        cipher = CaesarCipher.new
+        expect(cipher.caesar_cipher(message, -1)).to eql('gh')
+      end
+
+      it 'wraps a to z' do
+        message = 'Go back'
+        cipher = CaesarCipher.new
+        expect(cipher.caesar_cipher(message, -3)).to eql('Dl yxzh')
+      end
     end
 
-    it 'when numbers are in message' do
-      message = 'HAL9000'
-      cipher = CaesarCipher.new
-      expect(cipher.caesar_cipher(message, 1)).to eql('IBM9000')
+    context 'when numbers or symbols are in message' do
+      it 'keeps same numbers' do
+        message = 'HAL9000'
+        cipher = CaesarCipher.new
+        expect(cipher.caesar_cipher(message, 1)).to eql('IBM9000')
+      end
+
+      it 'keeps same punctuation' do
+        message = 'beep. boop. I am a bot!'
+        cipher = CaesarCipher.new
+        expect(cipher.caesar_cipher(message, 1)).to eql('cffq. cppq. J bn b cpu!')
+      end
     end
 
-    it 'when message contains punctuation' do
-      message = 'beep. boop. I am a bot!'
-      cipher = CaesarCipher.new
-      expect(cipher.caesar_cipher(message, 1)).to eql('cffq. cppq. J bn b cpu!')
+    context 'when space removal is enabled' do
+      it 'removes spaces from the message' do
+        message = "I have no spaces"
+        cipher = CaesarCipher.new
+        expect(cipher.caesar_cipher(message, 0, true)).to eql('Ihavenospaces')
+      end
     end
   end
 end
