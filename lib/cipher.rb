@@ -5,9 +5,9 @@ class CaesarCipher
           ascii = char.ord
           if ascii.between?(65, 90) || ascii.between?(97, 122)
               new_ascii = ascii + shift
-              if ascii >= 97 && new_ascii > 122
+              if ascii >= 97 && !new_ascii.between?(97, 122)
                   new_ascii = (new_ascii - 97) % 26 + 97
-              elsif ascii <= 90 && new_ascii > 90
+              elsif ascii <= 90 && !new_ascii.between?(65, 90)
                   new_ascii = (new_ascii - 65) % 26 + 65
               end
           else
@@ -16,7 +16,6 @@ class CaesarCipher
           new_ascii.chr
       end
       new_str = new_char_array.join
-      new_str
   end
 end
 
