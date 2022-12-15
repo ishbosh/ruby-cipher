@@ -48,5 +48,11 @@ describe CaesarCipher do
       cipher = CaesarCipher.new
       expect(cipher.caesar_cipher(message, 1)).to eql('IBM9000')
     end
+
+    it 'when message contains punctuation' do
+      message = 'beep. boop. I am a bot!'
+      cipher = CaesarCipher.new
+      expect(cipher.caesar_cipher(message, 1)).to eql('cffq. cppq. J bn b cpu!')
+    end
   end
 end
