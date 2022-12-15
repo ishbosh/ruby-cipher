@@ -2,7 +2,8 @@
 A Caesar Cipher built with Ruby
 
 Added rspec testing to the original code. While implementing spec tests I discovered
-a previously unknown bug with the letters not properly wrapping around after z.
+a previously unknown bug with the letters not properly wrapping around after z. 
+Also discovered a previously unknown bug with letters not wrapping with a negative shift.
 
 Converts a-z and A-Z chars in string to ASCII and shifts them by the
 shift variable, and then converts back to chars and returns the new string.
