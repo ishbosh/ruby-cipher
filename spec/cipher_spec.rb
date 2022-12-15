@@ -6,10 +6,10 @@ require './lib/cipher'
 # Shift original message by 3 chars
 # Wraps letters around to a when they go past z
 # Shift original message by -3 chars
+# Shift original message and keep case the same
 # Shift original message with numbers
 # Shift original message with spaces removed
 # Shift original message with punctuation
-# Shift original message and keep case the same
 
 describe CaesarCipher do
   describe '#caesar_cipher' do
@@ -20,9 +20,27 @@ describe CaesarCipher do
     end
 
     it 'when shift is 3' do
-      message = 'shift me by three'
+      message = 'shift me three'
       cipher = CaesarCipher.new
-      expect(cipher.caesar_cipher(message, 3)).to eql('vkliw ph eb wkuhh')
+      expect(cipher.caesar_cipher(message, 3)).to eql('vkliw ph wkuhh')
+    end
+
+    it 'wraps when beyond z' do
+      message = 'wrappy zappy'
+      cipher = CaesarCipher.new
+      expect(cipher.caesar_cipher(message, 30)).to eql('avettc dettc')
+    end
+
+    it 'when message has different casing' do
+      message = 'Keep My Case'
+      cipher = CaesarCipher.new
+      expect(cipher.caesar_cipher(message, 1)).to eql('Lffq Nz Dbtf')
+    end
+
+    it 'when shift is negative' do
+      message = 'Go back'
+      cipher = CaesarCipher.new
+      expect(cipher.caesar_cipher(message, -3)).to eql('Dl yxzh')
     end
   end
 end
