@@ -42,5 +42,11 @@ describe CaesarCipher do
       cipher = CaesarCipher.new
       expect(cipher.caesar_cipher(message, -3)).to eql('Dl yxzh')
     end
+
+    it 'when numbers are in message' do
+      message = 'HAL9000'
+      cipher = CaesarCipher.new
+      expect(cipher.caesar_cipher(message, 1)).to eql('IBM9000')
+    end
   end
 end
